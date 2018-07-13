@@ -1,0 +1,110 @@
+var parseFormdata = require('parse-formdata')
+var axios = require('axios');
+var path = require('path');
+var formidable = require('formidable');
+var fs = require('fs');
+
+var config = {
+  onUploadProgress: function(progressEvent) {
+    var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+  }
+};
+module.exports = function (req, res) {
+  // var form = new formidable.IncomingForm();
+  //     form.parse(req, function (err, fields, files) {
+  //       var oldpath = files.file.path;
+  //       var newpath = path.join(__dirname, files.file.name);
+  //       fs.rename(oldpath, newpath, function (err) {
+  //         if (err) throw err;
+  //         res.end();
+  //       });
+
+  // parseFormdata(req, function (err, data) {
+  //   if (err) throw err
+  //   axios.put(`https://transfer.sh/${data.parts[0].filename}`, data.parts[0], config)
+  //     .then(function(res) {
+  //       console.log(res.data);
+  //       output.className = 'container';
+  //       output.innerHTML = res.data;
+  //     })
+  //     .catch(function(err) {
+  //       output.className = 'container text-danger';
+  //       output.innerHTML = err.message;
+  //     });
+  //     res.end('Be kind to each other')
+  })
+
+  // var data = '';
+  // var formData = new FormData();
+  // req.on('data', function (chunk) {
+  //
+  // });
+  //
+  // req.on('end', function () {
+  //   console.log(formData);
+  //   console.log();
+  //   console.log('File uploaded');
+  //   res.writeHead(200);
+  //   res.end();
+  // });
+};
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html>
+
+<head>
+  <title>axios - file upload example</title>
+  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+</head>
+
+<body class="container">
+  <h1>file upload</h1>
+
+  <form role="form" class="form" onsubmit="return false;">
+    <div class="form-group">
+      <label for="file">File</label>
+      <input id="file" type="file" class="form-control" />
+    </div>
+    <button id="upload" type="button" class="btn btn-primary">Upload</button>
+  </form>
+
+  <div id="output" class="container"></div>
+
+  <script src="/axios.min.js"></script>
+  <script>
+    (function() {
+      var output = document.getElementById('output');
+      document.getElementById('upload').onclick = function() {
+        var data = new FormData();
+        data.append('foo', 'bar');
+        data.append('file', document.getElementById('file').files[0]);
+
+        var config = {
+          onUploadProgress: function(progressEvent) {
+            var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          }
+        };
+
+        axios.put('/upload/server', data, config)
+          .then(function(res) {
+            output.className = 'container';
+            output.innerHTML = res.data;
+          })
+          .catch(function(err) {
+            output.className = 'container text-danger';
+            output.innerHTML = err.message;
+          });
+      };
+    })();
+  </script>
+</body>
+
+</html>
