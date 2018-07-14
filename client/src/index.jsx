@@ -46,12 +46,14 @@ class App extends React.Component {
   render() {
     let worlds = [];
     for(let world of this.state.worlds){
-      worlds.push(<p><a href={world+'/index.html'} target="_blank">{world.split('-')[0]}</a></p>);
+      worlds.push(<p key={world}><a href={world+'/index.html'} target="_blank">{world.split('-')[0]}</a></p>);
     }
     return (<div>
-      <label>File</label>
-      <input id="file" type="file" className="form-control"/>
-      <button id="upload" type="button" className="btn btn-primary" onClick={() => this.handleUpload()}>Upload</button>
+      <span>Minecraft Overviewer</span>
+      <div className="row">
+      <input id="file" type="file" className="form-control col-xs-10"/>
+      <button id="upload" type="button" className="btn btn-primary col-xs-2" onClick={() => this.handleUpload()}>Upload</button>
+      </div>
       <ul>
       {worlds}
       </ul>
