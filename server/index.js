@@ -46,6 +46,7 @@ app.post('/upload', (req, res) => {
       });
     });
   });
+  //save some space
   //external command curl --upload-file transfer.sh <myfile>
 });
 
