@@ -40,6 +40,7 @@ app.post('/upload', (req, res) => {
       .on('close', () => {
         let randomDir = files.file.name.slice(0, -4) + "-" + Math.random() * Number.MAX_SAFE_INTEGER;
         exec(`overviewer.py ${path.join(__dirname, files.file.name.slice(0, -4))} ${path.join(__dirname + `/../client/dist/${randomDir}`)}`, (err, stdo, stde) => {
+          exec(`find ${__dirname} -not -name 'index.js' -delete`);
           res.send(randomDir);
         });
       });
